@@ -1,11 +1,40 @@
 import { Button, Container, Form, Grid, GridColumn, Header, Icon, Segment, Statistic } from 'semantic-ui-react';
 import './App.css';
 import DisplayBalances from './Components/DisplayBalances';
-import EntryLine from './Components/EntryLine';
 import MainHeader from './Components/MainHeader'
 import NewEntryForm from './Components/NewEntryForm';
+import { useState } from 'react';
+import EntryLines from './Components/EntryLines';
 
 function App() {
+
+  var initialEntries = [
+    {
+      description:"VA Work",
+      value:"$550",
+      isExpense:false
+    },
+    {
+      description:"Fiber Internet",
+      value:"$60",
+      isExpense:true
+    },
+    {
+      description:"Vet Bill",
+      value:"$92",
+      isExpense:true
+    },
+    {
+      description:"December Piano Lessons",
+      value:"$975",
+      isExpense:false
+    }
+  ]
+
+  
+
+  const [entries, setEntries] = useState(initialEntries);
+
   return (
     <div className="App">
       <Container>
@@ -20,10 +49,7 @@ function App() {
         <DisplayBalances/>
 
       <MainHeader title="Transactions" type="h3"/>
-      
-      <EntryLine description="Coffee" amount="$3" isExpense/>
-      <EntryLine description="Front end developer work" amount="$1,500"/>
-      <EntryLine description="Mortgage" amount="$950" isExpense/>
+      <EntryLines entries={entries}/>
 
       <MainHeader title="Add New Transaction" type="h3"/>
       <NewEntryForm/>
@@ -33,3 +59,4 @@ function App() {
 }
 
 export default App;
+
