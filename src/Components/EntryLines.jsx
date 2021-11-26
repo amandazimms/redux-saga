@@ -4,14 +4,16 @@ import EntryLine from './EntryLine';
 
 function EntryLines(props) {
   const entries = props.entries;
+  const deleteEntry = props.deleteEntry;
 
   return (
     <Container>
     {entries.map( entry => (
       <EntryLine 
-        description={entry.description} 
-        amount={entry.amount} 
-        isExpense={entry.isExpense}/>
+        key={entry.id}
+        entry={entry}
+        deleteEntry={deleteEntry}
+      />
     ))}
     </Container>
   )

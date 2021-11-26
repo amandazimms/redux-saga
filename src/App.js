@@ -10,30 +10,39 @@ function App() {
 
   var initialEntries = [
     {
+      id:1,
       description:"VA Work",
       value:"$550",
       isExpense:false
     },
     {
+      id:2,
       description:"Fiber Internet",
       value:"$60",
       isExpense:true
     },
     {
+      id:3,
       description:"Vet Bill",
       value:"$92",
       isExpense:true
     },
     {
+      id:4,
       description:"December Piano Lessons",
       value:"$975",
       isExpense:false
     }
   ]
 
-  
-
   const [entries, setEntries] = useState(initialEntries);
+
+  function deleteEntry(id){
+    //filter out all NON matching IDs (those to NOT be deleted)
+    const result = entries.filter(entry => entry.id !== id);
+    //setEntries to those (all but the deleted one)
+    setEntries(result);
+  }
 
   return (
     <div className="App">
@@ -49,7 +58,7 @@ function App() {
         <DisplayBalances/>
 
       <MainHeader title="Transactions" type="h3"/>
-      <EntryLines entries={entries}/>
+      <EntryLines entries={entries} deleteEntry={deleteEntry}/>
 
       <MainHeader title="Add New Transaction" type="h3"/>
       <NewEntryForm/>
