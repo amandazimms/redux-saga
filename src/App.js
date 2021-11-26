@@ -46,11 +46,12 @@ function App() {
     setEntries(result);
   }
 
-  function addEntry(description, value){
+  function addEntry(description, value, isExpense){
     const result = entries.concat({id: 
       entries.length+1, //<- this is a temporary fix    
       description, //<- with ES6, this is equivalent to description: description
-      value //<- with ES6, this is equivalent to value: value
+      value, //<- with ES6, this is equivalent to value: value
+      isExpense //<-same
     });
     console.log('entries:', entries);
     console.log('result:', result);
