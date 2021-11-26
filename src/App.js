@@ -41,12 +41,39 @@ function App() {
         </Segment>
 
       <Header as="h3">Transactions</Header>
+      
       <Segment color="red">
         <Grid columns={3} textAlign="right">
           <Grid.Row>
-            <Grid.Column>Coffee</Grid.Column>
-            <Grid.Column>$10</Grid.Column>
-            <Grid.Column>
+            <Grid.Column width={10} textAlign="left">Coffee</Grid.Column>
+            <Grid.Column width={3} textAlign="right">$10</Grid.Column>
+            <Grid.Column width={3}>
+              <Icon name="edit" bordered/>
+              <Icon name="trash" bordered/>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </Segment>
+
+      <Segment color="green">
+        <Grid columns={3} textAlign="right">
+          <Grid.Row>
+            <Grid.Column width={10} textAlign="left">Front end developer work</Grid.Column>
+            <Grid.Column width={3} textAlign="right">$1000</Grid.Column>
+            <Grid.Column width={3}>
+              <Icon name="edit" bordered/>
+              <Icon name="trash" bordered/>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </Segment>
+
+      <Segment color="red">
+        <Grid columns={3} textAlign="right">
+          <Grid.Row>
+            <Grid.Column width={10} textAlign="left">Mortgage</Grid.Column>
+            <Grid.Column width={3} textAlign="right">$450</Grid.Column>
+            <Grid.Column width={3}>
               <Icon name="edit" bordered/>
               <Icon name="trash" bordered/>
             </Grid.Column>
