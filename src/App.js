@@ -38,10 +38,23 @@ function App() {
   const [entries, setEntries] = useState(initialEntries);
 
   function deleteEntry(id){
-    //filter out all NON matching IDs (those to NOT be deleted)
+    //Note that in react you shouldn't direclty mutate a state. Workaround:
+
+    //filter out all NON matching IDs (those to NOT be deleted), store here
     const result = entries.filter(entry => entry.id !== id);
     //setEntries to those (all but the deleted one)
     setEntries(result);
+  }
+
+  function addEntry(description, value){
+    const result = entries.concat({id: 
+      entries.length+1, //<- this is a temporary fix    
+      description, //<- with ES6, this is equivalent to description: description
+      value //<- with ES6, this is equivalent to value: value
+    });
+    console.log('entries:', entries);
+    console.log('result:', result);
+    setEntries(result);                     
   }
 
   return (
@@ -61,7 +74,8 @@ function App() {
       <EntryLines entries={entries} deleteEntry={deleteEntry}/>
 
       <MainHeader title="Add New Transaction" type="h3"/>
-      <NewEntryForm/>
+      <NewEntryForm addEntry={addEntry}/>
+      
       </Container>
     </div>
   );
