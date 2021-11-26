@@ -1,6 +1,7 @@
 import { Button, Container, Form, Grid, GridColumn, Header, Icon, Segment, Statistic } from 'semantic-ui-react';
 import './App.css';
 import DisplayBalances from './Components/DisplayBalances';
+import EntryLine from './Components/EntryLine';
 import MainHeader from './Components/MainHeader'
 import NewEntryForm from './Components/NewEntryForm';
 
@@ -20,44 +21,9 @@ function App() {
 
       <MainHeader title="Transactions" type="h3"/>
       
-      <Segment color="red">
-        <Grid columns={3} textAlign="right">
-          <Grid.Row>
-            <Grid.Column width={10} textAlign="left">Coffee</Grid.Column>
-            <Grid.Column width={3} textAlign="right">$10</Grid.Column>
-            <Grid.Column width={3}>
-              <Icon name="edit" bordered/>
-              <Icon name="trash" bordered/>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Segment>
-
-      <Segment color="green">
-        <Grid columns={3} textAlign="right">
-          <Grid.Row>
-            <Grid.Column width={10} textAlign="left">Front end developer work</Grid.Column>
-            <Grid.Column width={3} textAlign="right">$1000</Grid.Column>
-            <Grid.Column width={3}>
-              <Icon name="edit" bordered/>
-              <Icon name="trash" bordered/>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Segment>
-
-      <Segment color="red">
-        <Grid columns={3} textAlign="right">
-          <Grid.Row>
-            <Grid.Column width={10} textAlign="left">Mortgage</Grid.Column>
-            <Grid.Column width={3} textAlign="right">$450</Grid.Column>
-            <Grid.Column width={3}>
-              <Icon name="edit" bordered/>
-              <Icon name="trash" bordered/>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Segment>
+      <EntryLine description="Coffee" amount="$3" isExpense/>
+      <EntryLine description="Front end developer work" amount="$1,500"/>
+      <EntryLine description="Mortgage" amount="$950" isExpense/>
 
       <MainHeader title="Add New Transaction" type="h3"/>
       <NewEntryForm/>
