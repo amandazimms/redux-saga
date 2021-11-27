@@ -20,6 +20,8 @@ function App() {
   const [expenseTotal, setExpenseTotal] = useState(0);
   const [total, setTotal] = useState(0);
 
+  const isOpenRedux = useSelector(state => state.modals.isOpen);
+
   const entries = useSelector(state => state.entries);//<-entries here corresponds to configureStore's key
 
   useEffect(() => {
@@ -107,7 +109,7 @@ function App() {
       />
       
       <ModalEdit 
-        isOpen={isOpen} 
+        isOpen={isOpenRedux} 
         setIsOpen={setIsOpen}  
         editEntry={editEntry}
         description={description} 
