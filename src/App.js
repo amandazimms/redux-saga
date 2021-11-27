@@ -52,6 +52,7 @@ function App() {
       newEntries[index].value = value;
       newEntries[index].isExpense = isExpense;
       setEntries(newEntries);
+      resetEntry();
     }
   }, [isOpen])
 
@@ -76,7 +77,7 @@ function App() {
     }
   }
 
-  function addEntry(description, value, isExpense){
+  function addEntry(){
     const result = entries.concat({id: 
       entries.length+1, //<- this is a temporary fix    
       description, //<- with ES6, this is equivalent to description: description
@@ -85,7 +86,14 @@ function App() {
     });
     console.log('entries:', entries);
     console.log('result:', result);
-    setEntries(result);                     
+    setEntries(result); 
+    resetEntry();                    
+  }
+
+  function resetEntry(){
+    setDescription('');
+    setValue('');
+    setIsExpense(true);
   }
 
   return (
