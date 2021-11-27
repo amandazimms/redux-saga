@@ -7,8 +7,6 @@ function ModalEdit(props) {
   const isOpen = props.isOpen;
   const setIsOpen = props.setIsOpen;
 
-  const editEntry = props.editEntry;
-
   const description = props.description;
   const value = props.value;
   const isExpense = props.isExpense;

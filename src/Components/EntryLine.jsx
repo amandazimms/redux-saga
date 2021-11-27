@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Grid, Icon, Segment } from 'semantic-ui-react'
-import ModalEdit from './ModalEdit';
 
 function EntryLine(props) {
   const id = props.entry.id;

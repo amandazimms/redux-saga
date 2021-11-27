@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import ButtonSaveOrCancel from './ButtonSaveOrCancel'
 import { Form } from 'semantic-ui-react';
 import EntryForm from './EntryForm';

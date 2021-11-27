@@ -1,4 +1,4 @@
-import { Button, Container, Form, Grid, GridColumn, Header, Icon, Segment, Statistic } from 'semantic-ui-react';
+import { Container, Statistic } from 'semantic-ui-react';
 import './App.css';
 import DisplayBalances from './Components/DisplayBalances';
 import MainHeader from './Components/MainHeader'
@@ -6,6 +6,7 @@ import NewEntryForm from './Components/NewEntryForm';
 import { useEffect, useState } from 'react';
 import EntryLines from './Components/EntryLines';
 import ModalEdit from './Components/ModalEdit';
+import { createStore } from 'redux';
 
 function App() {
 
@@ -58,7 +59,7 @@ function App() {
       setEntries(newEntries);
       resetEntry();
     }
-  }, [isOpen])
+  }, [isOpen]);
 
   useEffect(() => {
     let _incomeTotal = 0;
@@ -74,6 +75,45 @@ function App() {
     setIncomeTotal(_incomeTotal);
     console.log('totalIncome:', incomeTotal, 'expense:', expenseTotal, 'grand total:', total);
   }, [entries]);
+
+  const store = createStore((state = initialEntries, action) => {
+    console.log('action.payload:', action.payload);
+    
+    let newEntries;
+    if (action.type === 'ADD_ENTRY'){
+      console.log('adding entry');
+      newEntries = state.concat( {...action.payload} )
+      return newEntries;
+    }
+    else if (action.type === 'REMOVE_ENTRY'){
+      console.log('removing entry');
+      newEntries = state.filter(entry => entry.id !== action.payload.id);
+      return newEntries;
+    }
+    return state;
+  });
+
+  store.subscribe(()=> {
+    console.log('store:', store.getState());
+  })
+
+  const payload_add = {
+    id: 5,
+    description: 'hello',
+    value: 199,
+    isExpense: false
+  }
+
+  function addEntryRedux(payload){
+    return {type: 'ADD_ENTRY', payload }; //<- with ES6 this is the same as payload: payload
+  }
+
+  function removeEntryRedux(id){
+    return {type: 'REMOVE_ENTRY', payload: { id } }
+  }
+
+  store.dispatch(addEntryRedux(payload_add));
+  store.dispatch(removeEntryRedux(1));
 
   function deleteEntry(id){
     //Note that in react you shouldn't direclty mutate a state. Workaround:
