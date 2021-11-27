@@ -9,7 +9,7 @@ function EntryForm(props) {
   const setValue = props.setValue;
   const setIsExpense = props.setIsExpense;
   
-  return (
+  return ( 
     <Fragment>
       <Form.Group>
       <Form.Input 

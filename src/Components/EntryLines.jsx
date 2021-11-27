@@ -5,6 +5,7 @@ import EntryLine from './EntryLine';
 function EntryLines(props) {
   const entries = props.entries;
   const deleteEntry = props.deleteEntry;
+  const editEntry = props.editEntry;
 
   return (
     <Container>
@@ -13,6 +14,7 @@ function EntryLines(props) {
         key={entry.id}
         entry={entry}
         deleteEntry={deleteEntry}
+        editEntry={editEntry}
       />
     ))}
     </Container>
