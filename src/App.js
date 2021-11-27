@@ -13,25 +13,25 @@ function App() {
     {
       id:1,
       description:"VA Work",
-      value:"$550",
+      value:550,
       isExpense:false
     },
     {
       id:2,
       description:"Fiber Internet",
-      value:"$60",
+      value:60,
       isExpense:true
     },
     {
       id:3,
       description:"Vet Bill",
-      value:"$92",
+      value:92,
       isExpense:true
     },
     {
       id:4,
       description:"December Piano Lessons",
-      value:"$975",
+      value:975,
       isExpense:false
     }
   ]
@@ -44,6 +44,10 @@ function App() {
   const [value, setValue] = useState('');
   const [isExpense, setIsExpense] = useState(true);
 
+  const [incomeTotal, setIncomeTotal] = useState(0);
+  const [expenseTotal, setExpenseTotal] = useState(0);
+  const [total, setTotal] = useState(0);
+
   useEffect(() => {
     if(!isOpen && entryId){
       const index = entries.findIndex(entry => entry.id === entryId);
@@ -55,6 +59,21 @@ function App() {
       resetEntry();
     }
   }, [isOpen])
+
+  useEffect(() => {
+    let _incomeTotal = 0;
+    let _expenseTotal = 0;
+    entries.map(entry => {
+      if(entry.isExpense){
+        return _expenseTotal += Number(entry.value);
+      }
+      return _incomeTotal += Number(entry.value)
+    });
+    setTotal(_incomeTotal - _expenseTotal);
+    setExpenseTotal(_expenseTotal);
+    setIncomeTotal(_incomeTotal);
+    console.log('totalIncome:', incomeTotal, 'expense:', expenseTotal, 'grand total:', total);
+  }, [entries]);
 
   function deleteEntry(id){
     //Note that in react you shouldn't direclty mutate a state. Workaround:
@@ -84,8 +103,6 @@ function App() {
       value, //<- with ES6, this is equivalent to value: value
       isExpense //<-same
     });
-    console.log('entries:', entries);
-    console.log('result:', result);
     setEntries(result); 
     resetEntry();                    
   }
@@ -104,10 +121,10 @@ function App() {
 
         <Statistic size="small">
           <Statistic.Label>Your Balance:</Statistic.Label>
-          <Statistic.Value>2,500.11</Statistic.Value>
+          <Statistic.Value>{total}</Statistic.Value>
         </Statistic>
 
-        <DisplayBalances/>
+        <DisplayBalances incomeTotal={incomeTotal} expenseTotal={expenseTotal}/>
 
       <MainHeader title="Transactions" type="h3"/>
       <EntryLines entries={entries} deleteEntry={deleteEntry} editEntry={editEntry}/>
