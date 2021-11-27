@@ -6,38 +6,9 @@ import NewEntryForm from './Components/NewEntryForm';
 import { useEffect, useState } from 'react';
 import EntryLines from './Components/EntryLines';
 import ModalEdit from './Components/ModalEdit';
-import { createStore } from 'redux';
+import { useSelector } from 'react-redux';
 
 function App() {
-
-  var initialEntries = [
-    {
-      id:1,
-      description:"VA Work",
-      value:550,
-      isExpense:false
-    },
-    {
-      id:2,
-      description:"Fiber Internet",
-      value:60,
-      isExpense:true
-    },
-    {
-      id:3,
-      description:"Vet Bill",
-      value:92,
-      isExpense:true
-    },
-    {
-      id:4,
-      description:"December Piano Lessons",
-      value:975,
-      isExpense:false
-    }
-  ]
-
-  const [entries, setEntries] = useState(initialEntries);
   const [isOpen, setIsOpen] = useState(false);
 
   const [entryId, setEntryId] = useState();
@@ -49,6 +20,8 @@ function App() {
   const [expenseTotal, setExpenseTotal] = useState(0);
   const [total, setTotal] = useState(0);
 
+  const entries = useSelector(state => state.entries);//<-entries here corresponds to configureStore's key
+
   useEffect(() => {
     if(!isOpen && entryId){
       const index = entries.findIndex(entry => entry.id === entryId);
@@ -56,7 +29,7 @@ function App() {
       newEntries[index].description = description;
       newEntries[index].value = value;
       newEntries[index].isExpense = isExpense;
-      setEntries(newEntries);
+     // setEntries(newEntries);
       resetEntry();
     }
   }, [isOpen]);
@@ -74,53 +47,15 @@ function App() {
     setExpenseTotal(_expenseTotal);
     setIncomeTotal(_incomeTotal);
     console.log('totalIncome:', incomeTotal, 'expense:', expenseTotal, 'grand total:', total);
-  }, [entries]);
+  }, [entries])
 
-  const store = createStore((state = initialEntries, action) => {
-    console.log('action.payload:', action.payload);
-    
-    let newEntries;
-    if (action.type === 'ADD_ENTRY'){
-      console.log('adding entry');
-      newEntries = state.concat( {...action.payload} )
-      return newEntries;
-    }
-    else if (action.type === 'REMOVE_ENTRY'){
-      console.log('removing entry');
-      newEntries = state.filter(entry => entry.id !== action.payload.id);
-      return newEntries;
-    }
-    return state;
-  });
-
-  store.subscribe(()=> {
-    console.log('store:', store.getState());
-  })
-
-  const payload_add = {
-    id: 5,
-    description: 'hello',
-    value: 199,
-    isExpense: false
-  }
-
-  function addEntryRedux(payload){
-    return {type: 'ADD_ENTRY', payload }; //<- with ES6 this is the same as payload: payload
-  }
-
-  function removeEntryRedux(id){
-    return {type: 'REMOVE_ENTRY', payload: { id } }
-  }
-
-  store.dispatch(addEntryRedux(payload_add));
-  store.dispatch(removeEntryRedux(1));
 
   function deleteEntry(id){
     //Note that in react you shouldn't direclty mutate a state. Workaround:
     //filter out all NON matching IDs (those to NOT be deleted), store here
     const result = entries.filter(entry => entry.id !== id);
     //setEntries to those (all but the deleted one)
-    setEntries(result);
+   // setEntries(result);
   }
 
   function editEntry(id){
@@ -143,7 +78,7 @@ function App() {
       value, //<- with ES6, this is equivalent to value: value
       isExpense //<-same
     });
-    setEntries(result); 
+   // setEntries(result); 
     resetEntry();                    
   }
 
@@ -167,7 +102,7 @@ function App() {
         <DisplayBalances incomeTotal={incomeTotal} expenseTotal={expenseTotal}/>
 
       <MainHeader title="Transactions" type="h3"/>
-      <EntryLines entries={entries} deleteEntry={deleteEntry} editEntry={editEntry}/>
+      <EntryLines entries={entries} editEntry={editEntry}/>
 
       <MainHeader title="Add New Transaction" type="h3"/>
       <NewEntryForm 
