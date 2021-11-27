@@ -49,15 +49,6 @@ function App() {
     console.log('totalIncome:', incomeTotal, 'expense:', expenseTotal, 'grand total:', total);
   }, [entries])
 
-
-  function deleteEntry(id){
-    //Note that in react you shouldn't direclty mutate a state. Workaround:
-    //filter out all NON matching IDs (those to NOT be deleted), store here
-    const result = entries.filter(entry => entry.id !== id);
-    //setEntries to those (all but the deleted one)
-   // setEntries(result);
-  }
-
   function editEntry(id){
     console.log('edit entry with id:', id); 
     if(id){
