@@ -11,7 +11,7 @@ function EntryLine(props) {
   const isExpense = props.entry.isExpense || false;
 
   const dispatch = useDispatch();
-  dispatch({type: "TEST_MESSAGE"});
+
   return (
     <Segment color={isExpense ? 'red' : 'green'}>
     <Grid columns={3} textAlign="right">
