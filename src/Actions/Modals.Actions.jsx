@@ -1,7 +1,13 @@
+const modalTypes = {
+  OPEN_EDIT_MODAL: "OPEN_EDIT_MODAL",
+  CLOSE_EDIT_MODAL: "CLOSE_EDIT_MODAL"
+}
+export default modalTypes;
+
 export const openEditModal = (id) => {
-  return {type: 'OPEN_EDIT_MODAL', payload: {id} };
+  return {type: modalTypes.OPEN_EDIT_MODAL, payload: {id} };
 }
 
 export const closeEditModal = () => {
-  return {type: 'CLOSE_EDIT_MODAL' };
+  return {type: modalTypes.CLOSE_EDIT_MODAL };
 }

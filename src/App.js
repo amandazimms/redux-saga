@@ -6,7 +6,8 @@ import NewEntryForm from './Components/NewEntryForm';
 import { useEffect, useState } from 'react';
 import EntryLines from './Components/EntryLines';
 import ModalEdit from './Components/ModalEdit';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { getAllEntries } from './Actions/Entries.Actions';
 
 function App() {
   const [incomeTotal, setIncomeTotal] = useState(0);
@@ -37,6 +38,12 @@ function App() {
     setExpenseTotal(_expenseTotal);
     setIncomeTotal(_incomeTotal);
   }, [entries]);
+
+  const dispatch = useDispatch();
+
+  useEffect(()=> {
+    dispatch(getAllEntries());
+  }, []);
 
   return (
     <div className="App">
