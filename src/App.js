@@ -9,32 +9,20 @@ import ModalEdit from './Components/ModalEdit';
 import { useSelector } from 'react-redux';
 
 function App() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const [entryId, setEntryId] = useState();
-  const [description, setDescription] = useState('');
-  const [value, setValue] = useState('');
-  const [isExpense, setIsExpense] = useState(true);
-
   const [incomeTotal, setIncomeTotal] = useState(0);
   const [expenseTotal, setExpenseTotal] = useState(0);
   const [total, setTotal] = useState(0);
 
-  const isOpenRedux = useSelector(state => state.modals.isOpen);
+  const [entry, setEntry] = useState();
+
+  const {isOpen, id} = useSelector(state => state.modals);
 
   const entries = useSelector(state => state.entries);//<-entries here corresponds to configureStore's key
 
   useEffect(() => {
-    if(!isOpen && entryId){
-      const index = entries.findIndex(entry => entry.id === entryId);
-      const newEntries = [...entries];
-      newEntries[index].description = description;
-      newEntries[index].value = value;
-      newEntries[index].isExpense = isExpense;
-     // setEntries(newEntries);
-      resetEntry();
-    }
-  }, [isOpen]);
+    const index = entries.findIndex(entry => entry.id === id);
+    setEntry(entries[index]);
+   }, [isOpen, id]);
 
   useEffect(() => {
     let _incomeTotal = 0;
@@ -49,37 +37,7 @@ function App() {
     setExpenseTotal(_expenseTotal);
     setIncomeTotal(_incomeTotal);
     console.log('totalIncome:', incomeTotal, 'expense:', expenseTotal, 'grand total:', total);
-  }, [entries])
-
-  function editEntry(id){
-    console.log('edit entry with id:', id); 
-    if(id){
-      const index = entries.findIndex(entry => entry.id === id);
-      const entry = entries[index];
-      setEntryId(id);
-      setDescription(entry.description);
-      setValue(entry.value);
-      setIsExpense(entry.isExpense);
-      setIsOpen(true);
-    }
-  }
-
-  function addEntry(){
-    const result = entries.concat({id: 
-      entries.length+1, //<- this is a temporary fix    
-      description, //<- with ES6, this is equivalent to description: description
-      value, //<- with ES6, this is equivalent to value: value
-      isExpense //<-same
-    });
-   // setEntries(result); 
-    resetEntry();                    
-  }
-
-  function resetEntry(){
-    setDescription('');
-    setValue('');
-    setIsExpense(true);
-  }
+  }, [entries]);
 
   return (
     <div className="App">
@@ -95,29 +53,12 @@ function App() {
         <DisplayBalances incomeTotal={incomeTotal} expenseTotal={expenseTotal}/>
 
       <MainHeader title="Transactions" type="h3"/>
-      <EntryLines entries={entries} editEntry={editEntry}/>
+      <EntryLines entries={entries} />
 
       <MainHeader title="Add New Transaction" type="h3"/>
-      <NewEntryForm 
-        addEntry={addEntry} 
-        description={description} 
-        value={value} 
-        isExpense={isExpense}
-        setDescription={setDescription} 
-        setValue={setValue}
-        setIsExpense={setIsExpense}
-      />
+      <NewEntryForm />
       
-      <ModalEdit 
-        isOpen={isOpenRedux} 
-        setIsOpen={setIsOpen}  
-        editEntry={editEntry}
-        description={description} 
-        value={value} 
-        isExpense={isExpense}
-        setDescription={setDescription} 
-        setValue={setValue}
-        setIsExpense={setIsExpense}/>
+      <ModalEdit isOpen={isOpen} {...entry} />
 
       </Container>
     </div>

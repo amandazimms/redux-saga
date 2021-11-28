@@ -9,7 +9,6 @@ function EntryLine(props) {
   const description = props.entry.description;
   const value = props.entry.value;
   const isExpense = props.entry.isExpense || false;
-  const editEntry = props.editEntry;
 
   const dispatch = useDispatch();
 
@@ -20,10 +19,7 @@ function EntryLine(props) {
         <Grid.Column width={8} textAlign="left">{description}</Grid.Column>
         <Grid.Column width={4} textAlign="right">{value}</Grid.Column>
         <Grid.Column width={4}>
-          <Icon 
-            name="edit" 
-            bordered 
-            onClick={ ()=>dispatch(openEditModal(id)) }/>
+          <Icon name="edit" onClick={ ()=>dispatch(openEditModal(id)) } bordered />
           <Icon name="trash" onClick={ ()=>dispatch(removeEntryRedux(id)) } bordered/>
         </Grid.Column>
       </Grid.Row>

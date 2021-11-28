@@ -9,11 +9,7 @@ function EntryLines(props) {
   return (
     <Container>
     {entries.map( entry => (
-      <EntryLine 
-        key={entry.id}
-        entry={entry}
-        editEntry={editEntry}
-      />
+      <EntryLine key={entry.id} entry={entry}/>
     ))}
     </Container>
   )
