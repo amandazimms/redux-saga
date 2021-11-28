@@ -1,8 +1,18 @@
-import { take, delay, put } from 'redux-saga/effects';
+import { take, delay, put, call } from 'redux-saga/effects';
+
+
+function double(number){
+  return number*2;
+}
+
 export function* testSaga() {
   while(true) {
     console.log("Starting saga");
     const state = yield take('TEST_MESSAGE'); //waits until we get this message 
+    const a = yield call(double, 2);
+    console.log(a);
+    const b = yield double(3);
+    console.log(b);
     console.log("Finished saga", state);
   }
 }
