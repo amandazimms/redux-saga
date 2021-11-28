@@ -13,6 +13,7 @@ function ModalEdit(props) {
   const description = props.description;
   const value = props.value;
   const isExpense = props.isExpense;
+  const id = props.id;
 
   const dispatch = useDispatch();
   const entryUpdate = useEntryDetails(description, value, isExpense);
@@ -32,7 +33,7 @@ function ModalEdit(props) {
       </Modal.Content>
       <Modal.Actions>
         <Button onClick={ ()=>dispatch(closeEditModal()) }>Close</Button>
-        <Button onClick={ ()=>dispatch(closeEditModal()) } primary>Ok</Button>
+        <Button onClick={ ()=>entryUpdate.updateEntry(id) } primary>Ok</Button>
       </Modal.Actions>
     </Modal> 
   );

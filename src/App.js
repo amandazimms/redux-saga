@@ -22,7 +22,7 @@ function App() {
   useEffect(() => {
     const index = entries.findIndex(entry => entry.id === id);
     setEntry(entries[index]);
-   }, [isOpen, id]);
+   }, [isOpen, id, entries]);
 
   useEffect(() => {
     let _incomeTotal = 0;
@@ -36,7 +36,6 @@ function App() {
     setTotal(_incomeTotal - _expenseTotal);
     setExpenseTotal(_expenseTotal);
     setIncomeTotal(_incomeTotal);
-    console.log('totalIncome:', incomeTotal, 'expense:', expenseTotal, 'grand total:', total);
   }, [entries]);
 
   return (
